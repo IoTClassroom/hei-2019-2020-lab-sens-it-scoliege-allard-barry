@@ -7,14 +7,14 @@
 # SDK LIBRARY
 # -----------
 LIB_NAME = SENSIT_SDK_V2.0.0
-LIB_PATH = lib
+LIB_PATH = C:/Users/Paul Scoliege/Documents/HEI4/Prog-Embarquée/TP-Avec-Antoine/hei-2019-2020-lab-sens-it-scoliege-allard-barry/sensit-sdk-v2.0.0/sdk/lib
 
 
 # --------------
 # OUTPUT FOLDERS
 # --------------
-BIN_PATH = bin
-OBJ_PATH = obj
+BIN_PATH = C:/Users/Paul Scoliege/Documents/HEI4/Prog-Embarquée/TP-Avec-Antoine/hei-2019-2020-lab-sens-it-scoliege-allard-barry/sensit-sdk-v2.0.0/sdk/bin
+OBJ_PATH = C:/Users/Paul Scoliege/Documents/HEI4/Prog-Embarquée/TP-Avec-Antoine/hei-2019-2020-lab-sens-it-scoliege-allard-barry/sensit-sdk-v2.0.0/sdk/obj
 
 
 # ------------
@@ -190,4 +190,4 @@ dir:
 
 # Rule for USB flashing using dfu file manager (vendor id 0483)
 prog:
-	dfu-util -a 0 -s 0x08000000:leave -D $(BIN_PATH)/$(BIN_OUTPUT)
+	dfu-util -a 0 -s 0x08000000:leave -D $(C:/Users/Paul Scoliege/Documents/HEI4/Prog-Embarquée/TP-Avec-Antoine/hei-2019-2020-lab-sens-it-scoliege-allard-barry/sensit-sdk-v2.0.0/sdk/bin)/$(BIN_OUTPUT)
