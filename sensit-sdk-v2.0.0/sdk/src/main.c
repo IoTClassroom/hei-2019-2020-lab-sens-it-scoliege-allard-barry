@@ -17,11 +17,10 @@
 #include "hts221.h"
 #include "ltr329.h"
 #include "fxos8700.h"
-
+#include "discovery.h"
 
 /******* GLOBAL VARIABLES ******************************************/
 u8 firmware_version[] = "TEMPLATE";
-
 
 /*******************************************************************/
 
@@ -30,6 +29,7 @@ int main()
     error_t err;
     button_e btn;
     u16 battery_level;
+    bool send = FALSE;
 
     /* Start of initialization */
 
@@ -83,7 +83,15 @@ int main()
             /* RGB Led OFF */
             SENSIT_API_set_rgb_led(RGB_OFF);
 
-            if (btn == BUTTON_FOUR_PRESSES)
+            if (btn == BUTTON_THREE_PRESSES)
+            {
+                /* Force a RTC alarm interrupt to do a new measurement */
+                pending_interrupt |= INTERRUPT_MASK_RTC;
+
+                /* Set send Sigfox */
+                send = TRUE;
+            }
+            else if (btn == BUTTON_FOUR_PRESSES)
             {
                 /* Reset the device */
                 SENSIT_API_reset();
@@ -105,6 +113,19 @@ int main()
         {
             /* Clear interrupt */
             pending_interrupt &= ~INTERRUPT_MASK_FXOS8700;
+        }
+
+        /* Check if we need to send a message */
+        if (send == TRUE)
+        {
+
+            /* Send the message */
+            err = RADIO_API_send_message(RGB_MAGENTA, (u8 *)"HI", 2, FALSE, NULL);
+            /* Parse the error code */
+            ERROR_parser(err);
+
+            /* Clear send flag */
+            send = FALSE;
         }
 
         /* Check if all interrupt have been clear */
