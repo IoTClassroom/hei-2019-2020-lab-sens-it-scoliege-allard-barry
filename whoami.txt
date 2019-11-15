@@ -1,4 +1,4 @@
 Sens'it ID: B436F8
-Use-case: 4-Environment sensing
+Use-case: 3-Vibration sensing
 Firstnames: Virgile-Hugues-Paul
 Lastnames: Allard-Barry-Scoliege
