@@ -1,4 +1,4 @@
 Sens'it ID: B436F8
-Use-case: 3-Vibration sensing
+Use-case: 1-Door movement
 Firstnames: Virgile-Hugues-Paul
 Lastnames: Allard-Barry-Scoliege

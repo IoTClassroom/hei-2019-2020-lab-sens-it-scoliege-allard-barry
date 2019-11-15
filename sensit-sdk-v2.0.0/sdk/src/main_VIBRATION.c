@@ -26,13 +26,14 @@
 u8 firmware_version[] = "VIBR_v2.0.0";
 
 
-/*******************************************************************/
+/********************************************************************/
 
 int main()
 {
     error_t err;
     button_e btn;
     bool send = FALSE;
+    bool state = FALSE; //FALSE = CLOSED
 
     /* Discovery payload variable */
     discovery_data_s data = {0};
@@ -122,6 +123,8 @@ int main()
                 send = TRUE;
                 /* Increment event counter */
                 data.event_counter++;
+                //Change l'état de la porte
+                state = state!;
             }
 
             /* Clear interrupt */
@@ -131,13 +134,26 @@ int main()
         /* Check if we need to send a message */
         if (send == TRUE)
         {
+        	if(state==TRUE){
             /* Build the payload */
             DISCOVERY_build_payload(&payload, MODE_VIBRATION, &data);
 
+
             /* Send the message */
-            err = RADIO_API_send_message(RGB_BLUE, (u8*)&payload, DISCOVERY_PAYLOAD_SIZE, FALSE, NULL);
+            err = RADIO_API_send_message(RGB_BLUE, (u8*)"1001", DISCOVERY_PAYLOAD_SIZE, FALSE, NULL);
             /* Parse the error code */
             ERROR_parser(err);
+        	}
+        	if(state==FALSE){
+            /* Build the payload */
+            DISCOVERY_build_payload(&payload, MODE_VIBRATION, &data);
+
+
+            /* Send the message */
+            err = RADIO_API_send_message(RGB_BLUE, (u8*)"0110", DISCOVERY_PAYLOAD_SIZE, FALSE, NULL);
+            /* Parse the error code */
+            ERROR_parser(err);
+        	}
 
             if (err == RADIO_ERR_NONE)
             {
@@ -153,6 +169,8 @@ int main()
 
             /* Clear send flag */
             send = FALSE;
+
+
         }
 
         /* Check if all interrupt have been clear */

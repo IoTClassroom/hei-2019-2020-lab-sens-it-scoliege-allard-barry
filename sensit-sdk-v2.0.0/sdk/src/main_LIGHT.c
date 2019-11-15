@@ -17,7 +17,7 @@
 #include "discovery.h"
 
 
-/******** DEFINES **************************************************/
+/******** DEFINES ***************************************************/
 #define MEASUREMENT_PERIOD                 3600 /* Measurement & Message sending period, in second */
 
 
